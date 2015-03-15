@@ -11,7 +11,7 @@ jQuery(function ($) {
   var App = {
 
     store: function (data) {
-      if (arguments.length) {
+      if (data) {
         return localStorage.setItem('converted-words', JSON.stringify(data));
       } else {
         var store = localStorage.getItem('converted-words');
@@ -26,6 +26,10 @@ jQuery(function ($) {
       $('#piglatinapp')
         .find('#convert-word')
         .on('keyup', this.convert.bind(this));
+
+      $('#piglatinapp')
+        .find('#delete-all')
+        .on('click', this.deleteAll.bind(this));
 
       this.render();
 
@@ -44,12 +48,10 @@ jQuery(function ($) {
 
       $input.val('');
 
-      this.render();
-
     },
 
     render: function () {
-      $('#piglatinapp').find('#word-list').html(this.history.join('\n'));
+      $('#piglatinapp').find('#word-list').html(this.history.join(''));
       $('#piglatinapp').find('#convert-word').focus();
       this.store(this.history);
     },
@@ -60,9 +62,15 @@ jQuery(function ($) {
 
     addToList: function(data) {
       if (this.history.length >= MAX_ITEMS) {
-        this.history.shift();
+        this.history.pop();
       }
-      this.history.push('<li>' + data + '</li>');
+      this.history.unshift('<li>' + data + '</li>');
+      this.render();
+    },
+
+    deleteAll: function () {
+      this.history = [];
+      this.render();
     }
 
   };
