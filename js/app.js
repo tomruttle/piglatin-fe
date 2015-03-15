@@ -6,7 +6,7 @@ jQuery(function ($) {
 
   var ENTER_KEY = 13;
   var MAX_ITEMS = 5;
-  var API_URL = 'http://178.62.17.38:3000/convert';
+  var API_URL = 'http://178.62.17.38/convert';
 
   var App = {
 
