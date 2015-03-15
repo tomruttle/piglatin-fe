@@ -11,3 +11,6 @@ fe:
     - api
   volumes:
     - /home/truttle/Documents/personal/src/piglatin-fe:/app
+  environment:
+    - API_ADDR=http://api:3000
+
