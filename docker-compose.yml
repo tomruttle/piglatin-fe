@@ -1,0 +1,13 @@
+api:
+  image: tomruttle/piglatin-api
+  ports:
+    - "3000:3000"
+
+fe:
+  image: tomruttle/piglatin-fe
+  ports:
+    - "80:80"
+  links:
+    - api
+  volumes:
+    - /home/truttle/Documents/personal/src/piglatin-fe:/app
