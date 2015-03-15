@@ -3,12 +3,12 @@ form#piglatinform {
   margin-bottom: 2em;
 }
 
-ul#word-list {
-  padding: 1em;
-}
-
 a#delete-all {
   margin-left: 1em;
+}
+
+ul#word-list {
+  padding: 1em;
 }
 
 ul#word-list li {
