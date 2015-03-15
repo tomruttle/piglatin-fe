@@ -12,9 +12,9 @@ jQuery(function ($) {
 
     store: function (data) {
       if (data) {
-        return localStorage.setItem('converted-words', JSON.stringify(data));
+        return localStorage.setItem('piglatin-converted-words', JSON.stringify(data));
       } else {
-        var store = localStorage.getItem('converted-words');
+        var store = localStorage.getItem('piglatin-converted-words');
         return (store && JSON.parse(store)) || [];
       }
     },
