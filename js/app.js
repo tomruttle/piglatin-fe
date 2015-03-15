@@ -1,4 +1,4 @@
-/*global jQuery, Router */
+/*global jQuery*/
 
 jQuery(function ($) {
 
@@ -23,52 +23,49 @@ jQuery(function ($) {
 
       this.history = this.store();
 
-      $('#piglatinapp')
-        .find('#convert-word')
-        .on('keyup', this.convert.bind(this));
+      this.$plapp = $('#piglatinapp');
+      this.$plform = this.$plapp.find('#piglatinform');
+      this.$input = this.$plform.find('#convert-word');
+      this.$list = this.$plapp.find('#history').find('#word-list');
+      this.$empty = this.$plapp.find('#delete-all');
 
-      $('#piglatinapp')
-        .find('#delete-all')
-        .on('click', this.deleteAll.bind(this));
+      this.$plform.submit(this.submitForm.bind(this));
+      this.$empty.on('click', this.deleteAll.bind(this));
 
       this.render();
 
     },
 
-    convert: function (e) {
-
-      var $input = $(e.target);
-      var val = $input.val().trim();
-
-      if (e.which !== ENTER_KEY || !val) {
-        return;
-      }
-
+    submitForm: function (e) {
+      e.preventDefault();
+      var val = this.$input.val().trim();
       this.convertAction(val, this.addToList.bind(this));
-
-      $input.val('');
-
+      this.$input.val('');
     },
 
     render: function () {
-      $('#piglatinapp').find('#word-list').html(this.history.join(''));
-      $('#piglatinapp').find('#convert-word').focus();
+      this.$list.html(this.history.join('') || 'You haven\'t entered anything yet!');
+      this.$input.focus();
       this.store(this.history);
     },
 
     convertAction: function (val, callback) {
-      $.ajax({ url: API_URL + '/' + val, success: callback });
+      $.ajax({
+        url: API_URL + '/' + val,
+        success: function (data) { callback(val, data); }
+      });
     },
 
-    addToList: function(data) {
+    addToList: function(val, data) {
       if (this.history.length >= MAX_ITEMS) {
         this.history.pop();
       }
-      this.history.unshift('<li>' + data + '</li>');
+      this.history.unshift('<li>' + val + ' → ' + data + '</li>');
       this.render();
     },
 
-    deleteAll: function () {
+    deleteAll: function (e) {
+      e.preventDefault();
       this.history = [];
       this.render();
     }

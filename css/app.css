@@ -1,0 +1,21 @@
+form#piglatinform {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+ul#word-list {
+  padding: 1em;
+}
+
+a#delete-all {
+  margin-left: 1em;
+}
+
+ul#word-list li {
+  padding-bottom: 0.4em;
+}
+
+ul#word-list li:first-child {
+  font-size: 1.6em;
+  padding-bottom: 1em;
+}
